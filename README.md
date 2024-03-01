@@ -19,7 +19,7 @@ Kindly follow the following Instructions to run the project in your system and i
 - [Final Source Code](https://www.theblockchaincoders.com/sourceCode/supply-chain-management-project-source-code)
 
 #### Setup Video
-- [Final Code Setpup video](https://www.youtube.com/watch?v=LlX-39ywxsU)
+- [Final Code Setup video](https://www.youtube.com/watch?v=LlX-39ywxsU)
 
 ```https://code.visualstudio.com/download
   WATCH: Setup & Demo Of Project
