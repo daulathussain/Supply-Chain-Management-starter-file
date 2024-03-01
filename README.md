@@ -1,11 +1,4 @@
 
-
-
-
-Resource Final Code: https://www.theblockchaincoders.com/sourceCode/supply-chain-management-project-source-code
-
-
-
 # Building and Deploying a Blockchain Supply Chain Management DApp
 
 Building and Deploying a Blockchain Supply Chain Management DApp
