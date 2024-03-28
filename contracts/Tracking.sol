@@ -93,5 +93,10 @@ contract Tracking {
         Shipment memory shipment=shipments[_sender][_index];
         return (shipment.sender,shipment.reciever,shipment.pickupTime,shipment.deliveryTime,shipment.distance,shipment.price,shipment.status,shipment.isPaid);
     }
-
+    function getShipmentCount(address _sender) public view returns(uint256){
+        return shipments[_sender].length;
+    }
+    function getAllTransactions() public view returns(TypeShipment[] memory){
+        return typeShipments;
+    }
 }
