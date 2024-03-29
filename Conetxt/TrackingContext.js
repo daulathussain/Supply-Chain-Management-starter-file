@@ -16,14 +16,14 @@ export const TrackingProvider=({children})=>{
     const [currentUser,setCurrentUser]=useState("");
     const createShipment=async(items)=>{
         console.log(items);
-        const {reciever,pickupTime,distance,price}=items;
+        const {receiver,pickupTime,distance,price}=items;
         try{
             const web3Modal=new Web3Modal();
             const connection=await web3Modal.connect();
             const provider=new ethers.providers.Web3Provider(connection);
             const signer=provider.getSigner();
             const contract=fetchContract(signer);
-            const createItem=await contract.createShipment(reciever,new Date(pickupTime).getTime(),distance,ethers.utils.parseUnits(price,18),
+            const createItem=await contract.createShipment(receiver,new Date(pickupTime).getTime(),distance,ethers.utils.parseUnits(price,18),
             {
               value:ethers.utils.parseUnits(price,18),  
             });
@@ -42,7 +42,7 @@ export const TrackingProvider=({children})=>{
             const shipments=await contract.getAllShipments();
             const allShipments = shipments.map((shipment) => ({
               sender: shipment.sender,
-              reciever: shipment.reciever,
+              receiver: shipment.receiver,
               price: ethers.utils.formatEther(shipment.price.toString()),
               pickupTime: shipment.pickupTime.toNumber(),
               deliveryTime: shipment.deliveryTime.toNumber(),
@@ -70,7 +70,7 @@ export const TrackingProvider=({children})=>{
     };
     const completeShipment=async(completeShip)=>{
         console.log(completeShip);
-        const {reciever,index}=completeShip;
+        const {receiver,index}=completeShip;
         try{
             if(!window.ethereum) return "Install Metamask";
             const accounts=await window.ethereum.request({method:"eth_accounts"});
@@ -80,7 +80,7 @@ export const TrackingProvider=({children})=>{
             const signer=provider.getSigner();
             const contract=fetchContract(signer);
             const transaction = await contract.completeShipment(accounts[0],
-                reciever,index,
+                receiver,index,
                 {
                     getLimit:30000,
                 }
@@ -104,7 +104,7 @@ export const TrackingProvider=({children})=>{
             const shipment=await contract.getShipment(accounts[0],index*1);
             const SingleShiplent={
                 sender: shipment[0],
-                reciever: shipment[1],
+                receiver: shipment[1],
                 pickupTime: shipment[2].toNumber(),
                 deliveryTime: shipment[3].toNumber(),
                 distance: shipment[4].toNumber(),
@@ -119,7 +119,7 @@ export const TrackingProvider=({children})=>{
             }
         };
         const startShipment=async(getProduct)=>{
-            const{reciever,index}=getProduct;
+            const{receiver,index}=getProduct;
             try{
                 if(!window.ethereum) return "Install Metamask";
                 const accounts=await window.ethereum.request({method:"eth_accounts"});
@@ -128,7 +128,7 @@ export const TrackingProvider=({children})=>{
                 const provider=new ethers.providers.Web3Provider(connection);
                 const signer=provider.getSigner();
                 const contract=fetchContract(signer);
-                const shipment=await contract.startShipment(accounts[0],reciever,index*1);
+                const shipment=await contract.startShipment(accounts[0],receiver,index*1);
                 shipment.wait();
                 console.log(shipment);      
         }catch(error)
