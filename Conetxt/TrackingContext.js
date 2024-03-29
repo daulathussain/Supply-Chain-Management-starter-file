@@ -91,21 +91,26 @@ export const TrackingProvider=({children})=>{
         }
     };
     /**
-     * Get total number of shipments created by a user.
-     *
+     * Get total number of shipments created by a user
+     * 
      * @returns {Promise<number>} Number of shipments created
      */
     const getShipmentCount = async () => {
         try {
+            // Check if Metamask is installed
             if (!window.ethereum) return "Install Metamask";
-
+            // Get accounts
             const accounts = await window.ethereum.request({ method: "eth_accounts" });
+            // Create a JsonRpcProvider
             const provider = new ethers.providers.JsonRpcProvider();
+            // Fetch the contract
             const contract = fetchContract(provider);
+            // Get shipment count
             const shipmentCount = await contract.getShipmentCount(accounts[0]);
-
+            // Return the number of shipments
             return shipmentCount.toNumber();
         } catch (error) {
+            // Log an error if there is one
             console.log("Error while getting shipment count", error);
         }
     };
